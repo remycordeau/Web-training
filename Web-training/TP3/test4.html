@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>1819_INFO2_PWCS_TP1_EXO2_Q1</title>
+    <link rel="stylesheet" href="style.css">
+    <SCRIPT type = text/JavaScript"></SCRIPT>
+	<script>
+		var aCanvas;
+		var requestID;
+		var x = 100;
+		var y = 100;
+		function init()
+		{
+			aCanvas=document.getElementById('myCanvas');
+			context = aCanvas.getContext("2d");
+			context.fillStyle = "green";
+			printRect();
+		}
+
+		function pausecomp(millis) 
+		{
+			var date = new Date();
+			var curDate = null;
+			do 
+			{ 
+				curDate = new Date();
+			} 
+			while(curDate-date < millis);
+		} 
+
+		printRect = function()
+		{
+			var date = new Date();
+			pausecomp(50);
+			var curDate = new Date();
+			var diff = curDate - date;
+			if(diff < 500 && x<aCanvas.width) // si pas de différence entre les deux dates, on a pas changé d'onglet, on dessine les images
+			{
+				requestID = window.requestAnimationFrame(printRect);	
+			}
+			else // si on a changé d'onglet : date aura été calculé, mais quand on revient -> curDate est calculé et est trop différent ! Du coup, on remet à jour la date, et on redessine à partir de celle-ci
+			{
+				date = curDate;	
+				requestID = window.requestAnimationFrame(printRect);
+			}
+			context.clearRect(x,y,50,50);
+			x+=diff;
+			context.fillRect(x,y,50,50);		
+		}
+	</script>
+  </head>
+  <body onload = 'init()'>
+    <canvas id="myCanvas" width="1000" height="200"></canvas>
+  </body>
+</html>

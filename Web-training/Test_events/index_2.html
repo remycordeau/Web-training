@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Events </title>
+    </head>
+	<body onload = 'init()'>
+	    <canvas id="myCanvas" width="500" height="500" style = "border : 1px solid black"></canvas>
+	</body>
+<script>
+		var aCanvas;
+		var context;
+		var requestID;
+		var x = 0;
+		var y = 0;
+		var anim = 0; 
+		var delta = 50;
+		var img = new Image();
+		img.src = 'hero_walk_cycle_spritesheet_by_mrnoobtastic-d3defej.png';
+		var keys_pressed = [false,false,false,false,false,false]; //up, down, right, left, enter, esc 
+		
+		function init()
+		{
+			aCanvas=document.getElementById('myCanvas');
+			x = aCanvas.width/2;
+			y = aCanvas.height/2;
+			context = aCanvas.getContext("2d");
+			context.drawImage(img,0,2*128,128,128,x,y,128,128);
+			draw();
+		}
+		function draw()
+		{ 	 
+				var i = 0;
+				while(i<4 && !keys_pressed[i]) 
+				{
+					i++;
+				}
+				
+				if(i < 4) // keys_pressed[i] == true
+				{	
+					keys_pressed[i] = false;
+					movePlayer(i);
+				}
+				requestID = requestAnimationFrame(draw);
+		}
+		
+		function clear()
+		{
+			context.clearRect(x,y,128,128);
+		}
+		
+		function movePlayer(i)
+		{
+			clear();
+			anim = 0;  
+			switch(i)
+			{
+				case 0:
+					x = x - delta;
+    				context.drawImage(img,anim,i*128,128,128,x,y,128,128); 
+				break;
+				case 1:
+					x += delta;
+    				context.drawImage(img,anim,i*128,128,128,x,y,128,128); 
+				break;
+				case 2:
+					y += delta;
+    				context.drawImage(img,anim,i*128,128,128,x,y,128,128); 
+				break;
+				case 3:
+					y -= delta;
+    				context.drawImage(img,anim,i*128,128,128,x,y,128,128); 
+				break;
+			}
+			
+		}	
+
+
+		window.addEventListener("keydown", function (event) 
+		{
+	  		if (event.defaultPrevented) {
+	   			 return; // Should do nothing if the key event was already consumed.
+	 		}	
+
+			switch (event.key) 
+			{
+	    			case "ArrowDown":
+	      			// Do something for "down arrow" key press.
+		  		keys_pressed[2] = true;
+	     			break;
+	    			case "ArrowUp":
+	      			// Do something for "up arrow" key press.
+				keys_pressed[3] = true;
+	     			break;
+	   			case "ArrowLeft":
+	      			// Do something for "left arrow" key press.
+				keys_pressed[0] = true;
+	     			break;
+	    			case "ArrowRight":
+	      			// Do something for "right arrow" key press.
+				keys_pressed[1] = true;
+	      			break;
+	    			case "Enter":
+	      			// Do something for "enter" or "return" key press.
+				keys_pressed[4] = true;
+	     			break;
+	    			case "Escape":
+	      			// Do something for "esc" key press.
+				keys_pressed[5] = true;
+	      			break;
+	    			default:
+	      			return; // Quit when this doesn't handle the key event.
+			}
+
+				// Consume the event for suppressing "double action".
+				event.preventDefault();
+		}, true);
+    </script>
+</html>
+
+

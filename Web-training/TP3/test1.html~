@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>1819_INFO2_PWCS_TP1_EXO2_Q1</title>
+    <link rel="stylesheet" href="style.css">
+    <SCRIPT type = text/JavaScript"></SCRIPT>
+	<script>
+		var aCanvas;
+		var intervalID;
+		var x = 100;
+		var y = 100;
+		function init()
+		{
+			aCanvas=document.getElementById('myCanvas');
+			context = aCanvas.getContext("2d");
+			context.fillStyle = "green";
+			fourseconds = setInterval(printRect,100);
+		}
+
+		function pausecomp(millis) 
+		{
+			var date = new Date();
+			var curDate = null;
+			do 
+			{ 
+				curDate = new Date();
+			} 
+			while(curDate-date < millis);
+		} 
+
+		printRect = function()
+		{
+			context.clearRect(x,y,50,50);
+			pausecomp(300);
+			x+=10;
+			context.fillRect(x,y,50,50);
+			if(x == aCanvas.width)
+			{
+				clearInterval(intervalID);
+			}			
+		}
+	</script>
+  </head>
+  <body onload = 'init()'>
+    <canvas id="myCanvas" width="1000" height="200"></canvas>
+  </body>
+</html>
