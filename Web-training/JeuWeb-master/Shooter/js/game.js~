@@ -370,9 +370,9 @@ function gameOver()
 	canScore.style.display = 'none';
 	conArena.fillStyle = "white";
 	conArena.textAlign = "center";
-	conArena.fillText("Game Over ! Score = "+player.projectileSet.score+" Press <SPACE> to restart",canArena.width/2,canArena.height/2);	
+	conArena.fillText("Game Over ! Score = "+player.projectileSet.score+" Press <SPACE> to restart",canArena.width/2,canArena.height/2);
+	console.log("test");	
 	for (keycode in keyStatus) {
-		console.log("test");
                 if(keyStatus[keycode] == true){
                     if(keycode == keys.SPACE) 
 		    {
