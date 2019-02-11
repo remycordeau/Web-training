@@ -311,7 +311,7 @@ var player = {
                 this.cptExplosion = 1;
             }else{
                 //Game Over
-		gameOver();
+		stopAnimating = true;
                 console.log("GAME OVER");
             }
         }
@@ -365,29 +365,34 @@ var player = {
 };
 
 function gameOver()
-{
+{ 
+	var keycode;
 	stopAnimating = true;
 	canScore.style.display = 'none';
+	conArena.clearRect(0,0,canArena.width,canArena.height);
 	conArena.fillStyle = "white";
 	conArena.textAlign = "center";
-	conArena.fillText("Game Over ! Score = "+player.projectileSet.score+" Press <SPACE> to restart",canArena.width/2,canArena.height/2);	
-	for (keycode in keyStatus) {
-		console.log("test");
-                if(keyStatus[keycode] == true){
-                    if(keycode == keys.SPACE) 
-		    {
-			console.log("test");
-                     	restart();  
-                    }
+	conArena.fillText("Game Over ! Score = "+player.projectileSet.score+" Press <ENTER> to restart",canArena.width/2,canArena.height/2);		
+	for (keycode in keyStatus) 
+	{
+		if(keyStatus[keycode] == true)
+		{
+	        	if(keycode == keys.ENTER)
+			{
+				restart();
+	        	}
 		}
-	}
+	}            
 }
 
 function restart()
 {
-	console.log("test");
+	conArena.clearRect(0,0,canArena.width,canArena.height);
+	canScore.style.display = 'block';
 	stopAnimating = false;
-	recursiveAnim();
+	player.init();
+	player.nbOfLives = 2;
+	enemies.init();
 }
 
 function updateScene() {
@@ -447,19 +452,20 @@ function drawGame() {
 
 
 function mainloop () {
-    "use strict"; 
-    clearGame();
-    updateGame();
-    drawGame();
+    "use strict";
+    clearGame(); 
+    if(!stopAnimating)
+    {
+	updateGame();
+	drawGame();
+    }
+    else{
+	gameOver();
+    }
 }
 
 function recursiveAnim () {
     "use strict"; 
-    if(stopAnimating)
-    {
-	clearItems();
-	return;
-    }	
     mainloop();
     animFrame( recursiveAnim );
 }
