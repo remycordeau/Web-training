@@ -192,6 +192,40 @@ var enemies = {
         });
          this.remove();
     }
+}
+
+var boss = {
+    init : function(){
+        this.tabBoss = new Array();
+    },
+    add : function (boss) {
+        this.tabBoss.push(boss);  
+    },
+    remove : function () {  
+        this.tabBoss.map(function(obj,index,array){
+            if(obj.exists == false ||obj.x >ArenaWidth || obj.x<0){
+                  delete array[index];
+            }
+        });
+    },
+    draw : function(){ 
+        this.tabBoss.map(function(obj){
+            obj.draw();
+        });
+    },
+    clear : function(){
+       this.tabBoss.map(function(obj){
+            obj.clear();
+        });
+    },
+    update : function(){
+
+        this.tabBoss.map(function(obj){
+            obj.update();
+        });
+         this.remove();
+    }
+    
     
 };
 //test
@@ -430,7 +464,13 @@ function updateItems() {
 
         enemies.add(new Enemy(ArenaWidth, rand,-2));
     }
+     if(tics % 100 == 1 && player.projectileSet.score > 5) {
+         var rand = Math.floor(Math.random() * ArenaHeight);
+
+        boss.add(new Boss(ArenaWidth, rand,-2));
+    }
     enemies.update();
+    boss.update();
 }
 function drawScene() {
     "use strict"; 
@@ -440,11 +480,13 @@ function drawItems() {
     "use strict"; 
     player.draw();
     enemies.draw();
+    boss.draw();
 }
 function clearItems() {
     "use strict"; 
     player.clear(); 
     enemies.clear();
+    boss.clear();
 }
 
 function clearScore() {
@@ -532,6 +574,7 @@ function init() {
  
     player.init();
     enemies.init();
+    boss.init();
     
 window.addEventListener("keydown", keyDownHandler, false);
 window.addEventListener("keyup", keyUpHandler, false);
