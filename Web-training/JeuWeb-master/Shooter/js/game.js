@@ -11,6 +11,8 @@ var _timeToBeAlive = 30;
 //Game
 
 var stopAnimating = false;
+var begin = true;
+var highScore = 0;
 
 //Canvas
 var divArena;
@@ -297,7 +299,7 @@ var player = {
     y : 100,
     height : 29,
     width : 64,
-    nbOfLives : 2,
+    nbOfLives : 1,
     timeToBeAlive : 0,
     fires : function(){
         var tmp = new Projectile(this.x+this.width,this.y+this.height/2,4,10,3,"rgb(200,0,0)");
@@ -312,7 +314,6 @@ var player = {
             }else{
                 //Game Over
 		stopAnimating = true;
-                console.log("GAME OVER");
             }
         }
     },
@@ -368,11 +369,19 @@ function gameOver()
 { 
 	var keycode;
 	stopAnimating = true;
+	console.log("highscore :"+highScore);
+	console.log("score :"+player.projectileSet.score);
+	console.log("condition :"+player.projectileSet.score >= highScore);
+	if(player.projectileSet.score >= highScore)
+	{
+		highScore = player.projectileSet.score;
+	}
 	canScore.style.display = 'none';
 	conArena.clearRect(0,0,canArena.width,canArena.height);
 	conArena.fillStyle = "white";
 	conArena.textAlign = "center";
-	conArena.fillText("Game Over ! Score = "+player.projectileSet.score+" Press <ENTER> to restart",canArena.width/2,canArena.height/2);		
+	conArena.fillText("Game Over ! Score = "+player.projectileSet.score+" Press <ENTER> to restart",canArena.width/2,canArena.height/2);	
+	conArena.fillText("HighScore : "+highScore,canArena.width/2,canArena.height/2 + 50 ); 	
 	for (keycode in keyStatus) 
 	{
 		if(keyStatus[keycode] == true)
@@ -391,7 +400,8 @@ function restart()
 	canScore.style.display = 'block';
 	stopAnimating = false;
 	player.init();
-	player.nbOfLives = 2;
+	player.projectileSet.score = 0;
+	player.nbOfLives = 1;
 	enemies.init();
 }
 
@@ -426,11 +436,12 @@ function clearItems() {
 }
 
 function clearScore() {
-    conScore.clearRect(0,0,300,50);
+    conScore.clearRect(0,0,500,50);
 }
 function drawScore() {
     conScore.fillText("life : "+player.nbOfLives, 10, 25);
     conScore.fillText("score : "+player.projectileSet.score, 150,25);
+    conScore.fillText("HighScore : " +highScore,350,25);
 }
 function updateGame() {
     "use strict"; 
