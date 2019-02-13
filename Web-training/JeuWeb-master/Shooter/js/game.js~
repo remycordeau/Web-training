@@ -12,7 +12,7 @@ var _timeToBeAlive = 30;
 
 var stopAnimating = false;
 var begin = true;
-var hihScore = 0;
+var highScore = 0;
 
 //Canvas
 var divArena;
@@ -369,9 +369,6 @@ function gameOver()
 { 
 	var keycode;
 	stopAnimating = true;
-	console.log("highscore :"+highScore);
-	console.log("score :"+player.projectileSet.score);
-	console.log("condition :"+player.projectileSet.score >= highScore);
 	if(player.projectileSet.score >= highScore)
 	{
 		highScore = player.projectileSet.score;
@@ -396,13 +393,28 @@ function gameOver()
 
 function restart()
 {
-	conArena.clearRect(0,0,canArena.width,canArena.height);
+	clearScene();
 	canScore.style.display = 'block';
 	stopAnimating = false;
 	player.init();
 	player.projectileSet.score = 0;
 	player.nbOfLives = 1;
 	enemies.init();
+}
+
+function start()
+{
+    var keycode;
+    for (keycode in keyStatus) 
+	{
+		if(keyStatus[keycode] == true)
+		{
+	        	if(keycode == keys.ENTER)
+			{
+				begin = false;
+	        	}
+		}
+	}    	
 }
 
 function updateScene() {
@@ -461,18 +473,35 @@ function drawGame() {
     drawItems();    
 }
 
+function clearScene()
+{
+	conArena.clearRect(0,0,canArena.width,canArena.height);
+}
+
 
 function mainloop () {
     "use strict";
-    clearGame(); 
-    if(!stopAnimating)
+    
+    if(begin)
     {
-	updateGame();
-	drawGame();
+	conArena.fillStyle = "white";
+	conArena.textAlign = "center";
+	conArena.fillText("Press <ENTER> to play",canArena.width/2,canArena.height/2);
+	start();
     }
-    else{
-	gameOver();
-    }
+    else
+    {
+	clearScene();
+    	clearGame(); 
+    	if(!stopAnimating)
+    	{
+		updateGame();
+		drawGame();
+    	}
+    	else{
+		gameOver();
+    	}
+     }
 }
 
 function recursiveAnim () {
