@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Choose a Game</title></head>
+<body>
+<h1>Welcome, <%= username %></h1>
+<ul>
+<li><a href= >Play Game 2</a></li>
+<li><a href= >Play Game 3</a></li>
+<li><a href= >Play Game 4</a></li>
+</ul>
+</body>
+</html>
