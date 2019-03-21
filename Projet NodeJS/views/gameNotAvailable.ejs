@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Game</title>
+</head>
+<body>
+<h1>Sorry <%= username%>, this game is still on development ! Come back later !</h1>
+<form action = "/chooseGame" method="post">
+  <input type = "submit" value = "Go back to game selection">
+  <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
+</form>
+</body>
+</html>

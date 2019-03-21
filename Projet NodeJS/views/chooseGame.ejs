@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head><title>Choose a Game</title></head>
+<script type = "text/javascript">
+    document.createElement("score");
+    var score = document.getElementById("score");
+    score.value = 0;
+    console.log("initialized score :"+score.value);
+</script>
 <body>
 <h1>Welcome, <%= username %></h1>
-<ul>
-<li><a href="/index" >Play Game 1</a></li>
-<li><a href= >Play Game 2</a></li>
-<li><a href= >Play Game 3</a></li>
-<li><a href= >Play Game 4</a></li>
-</ul>
+<form action = "/game1" method = "post">
+  <input type = "submit" value = "Play Game 1">
+  <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
+  <input type = "hidden" id = "score" name = "score" value = "">
+</form>
+<form action = "/gameNotAvailable" method = "post">
+  <input type = "submit" value = "Play Game 2">
+  <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
+</form>
+<form action = "/gameNotAvailable" method = "post">
+  <input type = "submit" id = "name" value = "Play Game 3">
+  <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
+</form>
 </body>
 </html>
