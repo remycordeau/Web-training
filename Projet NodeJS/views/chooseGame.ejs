@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head><title>Choose a Game</title></head>
-<script type = "text/javascript">
-    document.createElement("score");
-    var score = document.getElementById("score");
-    score.value = 0;
-    console.log("initialized score :"+score.value);
-</script>
-<body>
 <h1>Welcome, <%= username %></h1>
 <form action = "/game1" method = "post">
-  <input type = "submit" value = "Play Game 1">
+  <input type = "submit" value = "Play Game 1"> <p>Your score : <%= score %></p>
   <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
-  <input type = "hidden" id = "score" name = "score" value = "">
+  <input type = "hidden" id = "score" name = "score" value ="<%= score %>">
 </form>
 <form action = "/gameNotAvailable" method = "post">
   <input type = "submit" value = "Play Game 2">
   <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
+  <input type = "hidden" id = "score" name = "score" value ="<%= score %>">
 </form>
 <form action = "/gameNotAvailable" method = "post">
   <input type = "submit" id = "name" value = "Play Game 3">
   <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
+  <input type = "hidden" id = "score" name = "score" value ="<%= score %>">
 </form>
 <form action = "/disconnect" method "post">
   <input type ="submit" value = "disconnect">

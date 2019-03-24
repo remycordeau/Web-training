@@ -62,8 +62,8 @@ app.get('/', function(req, res){
 
 //chooseGame page
 
-app.get('/chooseGame', function(req,res){ // if the user is not logged in, he can't directly access the chooseGame page, he will be redirected to the login page
-    if(!checkAuth(req, res)){
+app.get('/chooseGame', function(req,res){ // if the user is not logged in, he can't directly access the chooseGame page
+    if(!checkAuth(req, res)){ //he will be redirected to the login page
       res.render("login",{});
     }
     else{
@@ -73,8 +73,15 @@ app.get('/chooseGame', function(req,res){ // if the user is not logged in, he ca
 
 app.post('/chooseGame', function(req, res) {
   req.session.username = req.body.name;
+  console.log(req.body);
+  if(req.body.score == null) { // if the body has no score field, it means that the user has just logged in
+    req.session.score = 0; // by default, score is 0.
+  }
+  else{ // otherwise, it means that he just stopped playing (this post is called in game1.ejs)
+    req.session.score = req.body.score;
+  }
   //console.log(req.session.username);
-  res.render('chooseGame',{username: req.body.name})
+  res.render('chooseGame',{username: req.body.name, score: req.session.score})
 });
 
 app.get( "/disconnect", (req,res) =>{ //disconnect button, the req.session.username field is deleted
@@ -96,8 +103,9 @@ app.get('/game1', function(req, res) {
 
 app.post('/game1', function(req, res) {
   req.session.username = req.body.name;
-  console.log("username :"+req.body.name+" userscore : "+req.body.score);
-  res.render('game1',{username: req.body.name,userscore: req.body.score})
+  req.session.score = req.body.score;
+  console.log("username :"+req.body.name+" userscore : "+req.session.score);
+  res.render('game1',{username: req.body.name,score: req.session.score})
 });
 
 //gameNotAvailable page
@@ -113,6 +121,6 @@ app.get("/gameNotAvailable", function (req,res) {
 
 app.post("/gameNotAvailable", function(req,res){
   req.session.username = req.body.name;
-  //console.log(req.session.username);
-  res.render('gameNotAvailable', {username: req.body.name})
+  req.session.score = req.body.score;
+  res.render('gameNotAvailable', {username: req.body.name,score: req.session.score})
 });

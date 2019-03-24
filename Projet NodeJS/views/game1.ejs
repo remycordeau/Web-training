@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head><title>Game 1</title></head>
+<head><title>Random game</title></head>
 <script type="text/javascript">
+  init = function(){
+    score = document.getElementById("score");
+    console.log(score);
+  }
   play = function(){
-    score = Math.floor(Math.random() * Math.floor(100));
-    alert(score);
+    //console.log("score"+score.value);
+    let random = Math.floor(Math.random() * Math.floor(100)); // random integer between 0 and 100
+    if(random > score.value){
+      score.value = random;
+    }
+    if(confirm(random)){ // when ok button is clicked, the score on the web page is refreshed
+      reload();
+    }
+  }
+  reload = function(){ // updates the content of the dom element with the id userscore
+    var div = document.getElementById("userscore");
+    var content = "Your score : "+score.value;
+    div.innerHTML= content;
   }
 </script>
-<body>
-<h1>Welcome <%= username %> to the random game !</h1>
-<h2> Your score : <%= userscore %></h2>
-<button onclick="play()" >Play</button>
+<body onload='init()'>
+<h1>Welcome <%= username %> to the random game !</h1> <!-- gets the username and the score from the post method in chooseGame -->
+<h2 id = "userscore">Your score : <%= score %></h2>
+<button onclick="play()" >Play</button> <!-- button runs javascript function play when clicked-->
 <form action = "/chooseGame" method = "post">
-  <input type = "submit" value = "Save score and go back to menu">
+  <input type = "submit" value = "Save score and go back to menu"> <!-- button that resend to the chooseGame page along with the username and his score-->
   <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
+  <input type = "hidden" id = "score" name = "score" value = "<%= score %>">
 </form>
 </body>
 </html>
