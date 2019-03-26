@@ -6,16 +6,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<title>Game not available</title>
+<title>Sign up page</title>
 </head>
 <body>
-<h1 class="text-center">Sorry <%= username%>, this game is still on development ! Come back later !</h1>
+<h1 class="text-center text-dark">Sign up</h1>
+<form action ="/chooseGame" method = "post">
 <div class="pt-5 text-center">
-<form action = "/backMenu" method="post">
-  <input type = "submit" class="btn btn-primary btn-lg" value = "Go back to game selection">
-  <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
-  <input type = "hidden" id = "score" name = "score" value ="<%= score %>">
+<label for="name">Enter your id: </label>
+<input type="text" name="name" id="name" required>
+</div>
+<div class="text-center">
+<input type = "submit" class="pt-2 btn btn-success btn-lg" value = "Register">
 </form>
+</div>
+<div class="pt-2 text-center text-danger">
+  <%= error %>
 </div>
 </body>
 </html>

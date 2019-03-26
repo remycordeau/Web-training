@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <title>Login page</title>
 </head>
 <body>
-<h1>Login</h1>
+<h1 class="text-center text-success">Login</h1>
+<div class="text-center pt-5">
+<div>
 <form action ="/chooseGameLogged" method = "post">
 <div>
-<label for="name">Enter your id: </label>
+<label for="name">Enter your id : </label>
 <input type="text" name="name" id="name" required>
 </div>
-<input type = "submit" value = "log in">
-</form>
 <div>
+<input type = "submit" class=" pt-2 btn btn-success btn-lg" value = "Log in">
+</div>
+</form>
+</div>
+</div>
+<div class="text-danger text-center">
 <%= error %>
 </div>
+<div class="text-center pt-5">
+<div>
 <form action="/signup" method = "post">
   <div>
     <label for="signup">Not registered ? Sign up</label>
-    <input type = "submit" name="signup" value="Sign up">
+    <div>
+    <input type = "submit" class="pt-1 btn btn-primary btn-lg" name="signup" value="Sign up">
+  </div>
   </div>
 </form>
-<div>Web site developped by Rémy Cordeau and Rémi Decoster</div>
+</div>
+</div>
+<div class="pt-5 text-center small">Web site developped by Rémy Cordeau and Rémi Decoster</div>
 </body>
 </html>

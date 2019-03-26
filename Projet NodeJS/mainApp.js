@@ -64,14 +64,28 @@ function compareScore(userA,userB){
 Routes
 */
 
-//login page
+/**
+login page
+*/
 
 app.get('/', function(req, res){
   req.body.error = "";
   res.render("login",{error: req.body.error});
 });
 
-//signin page
+/**
+signup page
+*/
+
+app.get("/signup", function (req,res) {
+  if(!checkAuth(req, res)){
+    req.body.error="";
+    res.render("login",{error: req.body.error});
+    }
+    else{
+        res.render("signup",{});
+    }
+})
 
 app.post("/signup", (req,res)=>{
   req.body.error = "";
@@ -97,7 +111,9 @@ app.post("/chooseGame",function(req,res){
               }});
       });
 
-//chooseGame page
+/**
+chooseGame page
+*/
 
 app.get('/chooseGame', function(req,res){ // if the user is not logged in, he can't directly access the chooseGame page
     if(!checkAuth(req, res)){ //he will be redirected to the login page
@@ -135,6 +151,16 @@ app.post('/chooseGameLogged', function(req, res) {
               }});
       });
 
+app.get("/backMenu", function (req,res) {
+        if(!checkAuth(req, res)){
+          req.body.error="";
+          res.render("login",{error: req.body.error});
+          }
+          else{
+              res.render("backMenu",{});
+          }
+      })
+
 app.post("/backMenu", function(req,res){
   req.session.username = req.body.name;
   req.session.score = req.body.score;
@@ -149,7 +175,9 @@ app.get( "/disconnect", (req,res) =>{ //disconnect button, the req.session.usern
   res.render("login",{error: req.body.error});
 });
 
-// game1 page
+/**
+game1 page
+*/
 
 app.get('/game1', function(req, res) {
   console.log(checkAuth(req,res));
@@ -178,7 +206,9 @@ app.post('/game1', function(req, res) {
 
 });
 
-//gameNotAvailable page
+/**
+gameNotAvailable page
+*/
 
 app.get("/gameNotAvailable", function (req,res) {
   if(!checkAuth(req, res)){
