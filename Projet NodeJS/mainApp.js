@@ -21,6 +21,8 @@ const app = express();
 const port = 3000;
 require("./User")
 const User = mongoose.model('User');
+require("./Admin")
+const Admin = mongoose.model('Admin');
 var bodyParser = require("body-parser");
 var session = require('express-session');
 
@@ -136,18 +138,29 @@ app.get('/chooseGame', function(req,res){ // if the user is not logged in, he ca
       }
   });
 
+/**
+this post has to check whether or not the user is an admin, if it is not, it checks if it is a regular user
+*/
 app.post('/chooseGameLogged', function(req, res) {
   req.session.username = req.body.name;
   console.log("username"+req.session.username);
-  User.findOne({
+  Admin.findOne({ // if the user is an admin
               login: req.body.name
-          }, function(err, user) {
-              if (user) {
-                    res.render("chooseGame",{username: user.login, score: user.score})
-                  }
-                  else {
-                    req.body.error = "User does not exist ! Please sign up !";
-                    res.render('login', {error: req.body.error});
+          }, function(err, admin) {
+              if (admin) {
+                User.find() // he has to access the whole users list
+                  .then((users) => {res.render("admin",{username: admin.login, usersList: users})})
+                }else {
+                    User.findOne({
+                                login: req.body.name
+                            }, function(err, user) {
+                                if (user) {
+                                      res.render("chooseGame",{username: user.login, score: user.score})
+                                    }
+                                    else {
+                                      req.body.error = "User does not exist ! Please sign up !";
+                                      res.render('login', {error: req.body.error});
+                                }});
               }});
       });
 
@@ -226,5 +239,29 @@ app.post("/gameNotAvailable", function(req,res){
   res.render('gameNotAvailable', {username: req.body.name,score: req.session.score})
 });
 
+
+/**
+admin page
+*/
+app.get("/admin", function (req,res) {
+  if(!checkAuth(req, res)){
+    req.body.error="";
+    res.render("login",{error: req.body.error});
+    }
+    else{
+        res.render("admin",{});
+    }
+})
+
+app.post("/admin", function (req,res) {
+  User.deleteOne({login: req.body.name}, function(err){
+    if(err){
+      console.log("Can not delete user ! Error : "+err.stack);
+    }else{
+      User.find() // update of the users table after deletion
+        .then((users) => {res.render("admin",{username: req.body.name, usersList: users})})
+    }
+  })
+})
 
 module.exports = app;
