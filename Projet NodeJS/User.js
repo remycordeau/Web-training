@@ -6,10 +6,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  password: {
-    type: String,
-    trim: true,
-  },
 	score: Number,
 });
 

@@ -5,12 +5,21 @@
 </head>
 <body>
 <h1>Login</h1>
-<form action ="/chooseGame" method = "post">
+<form action ="/chooseGameLogged" method = "post">
 <div>
 <label for="name">Enter your id: </label>
 <input type="text" name="name" id="name" required>
 </div>
 <input type = "submit" value = "log in">
+</form>
+<div>
+<%= error %>
+</div>
+<form action="/signup" method = "post">
+  <div>
+    <label for="signup">Not registered ? Sign up</label>
+    <input type = "submit" name="signup" value="Sign up">
+  </div>
 </form>
 <div>Web site developped by Rémy Cordeau and Rémi Decoster</div>
 </body>
