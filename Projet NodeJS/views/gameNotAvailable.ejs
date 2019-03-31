@@ -11,7 +11,7 @@
 <body>
 <h1 class="text-center">Sorry <%= username%>, this game is still on development ! Come back later !</h1>
 <div class="pt-5 text-center">
-<form action = "/backMenu" method="post">
+<form action = "/backMenu" method="post"> <!-- Form to go back to menu-->
   <input type = "submit" class="btn btn-primary btn-lg" value = "Go back to game selection">
   <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
   <input type = "hidden" id = "score" name = "score" value ="<%= score %>">

@@ -12,7 +12,7 @@
 <h1 class="text-center text-success">Login</h1>
 <div class="text-center pt-5">
 <div>
-<form action ="/chooseGameLogged" method = "post">
+<form action ="/chooseGameLogged" method = "post"> <!-- Form to submit id -->
 <div>
 <label for="name">Enter your id : </label>
 <input type="text" name="name" id="name" required>
@@ -23,12 +23,12 @@
 </form>
 </div>
 </div>
-<div class="text-danger text-center">
+<div class="text-danger text-center"> <!--Error displayed if the username submitted is not registered as a website user one -->
 <%= error %>
 </div>
 <div class="text-center pt-5">
 <div>
-<form action="/signup" method = "post">
+<form action="/signup" method = "post"> <!-- Form to redirect to signup page -->
   <div>
     <label for="signup">Not registered ? Sign up</label>
     <div>

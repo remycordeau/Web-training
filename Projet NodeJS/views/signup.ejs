@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1 class="text-center text-dark">Sign up</h1>
-<form action ="/chooseGame" method = "post">
+<form action ="/chooseGame" method = "post">  <!-- Form to submit id -->
 <div class="pt-5 text-center">
 <label for="name">Enter your id: </label>
 <input type="text" name="name" id="name" required>
@@ -19,7 +19,7 @@
 <input type = "submit" class="pt-2 btn btn-success btn-lg" value = "Register">
 </form>
 </div>
-<div class="pt-2 text-center text-danger">
+<div class="pt-2 text-center text-danger"> <!-- Error displayed if the username is already used -->
   <%= error %>
 </div>
 </body>

@@ -10,7 +10,7 @@
 </head>
 <h1 class="text-center text-primary">Welcome, <%= username %></h1>
 <div class="pt-5 text-center">
-<form action = "/game1" method = "post">
+<form action = "/game1" method = "post">  <!-- Form to choose the games -->
   <input type = "submit" class=" btn btn-info btn-lg" value = "Play Game 1">
   <p class="pt-2">Your score : <%= score %></p>
   <input type = "hidden" id = "name" name = "name" value = "<%= username %>">
@@ -31,7 +31,7 @@
   <input type = "hidden" id = "score" name = "score" value ="<%= score %>">
 </form>
 </div>
-<div class="pt-5 text-center">
+<div class="pt-5 text-center"> <!-- Disconnect button that redirects to login page -->
 <form action = "/disconnect" method "post">
   <input type ="submit" class="btn btn-danger btn-lg" value = "Disconnect">
 </form>
